@@ -66,7 +66,8 @@ int main() {
             sum += local_sum;
         }
 
-    double approx = sum / N;
+        double approx = sum / N;
+    }
 
     auto end = std::chrono::high_resolution_clock::now();
 
