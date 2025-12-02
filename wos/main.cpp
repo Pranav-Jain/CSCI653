@@ -43,31 +43,26 @@ int main() {
     // -------- run WOS on all points --------
     auto start = std::chrono::high_resolution_clock::now();
 
-    for (int i = 0; i < M; i++) {
-        auto &x0 = x0_list[i];
-        
-        double sum = 0.0;
-        
-        #pragma omp parallel
-        {
-            int thread_id = 0;
-            #ifdef _OPENMP
-                thread_id = omp_get_thread_num();
-            #endif
-            std::mt19937 rng(1234 + thread_id);
+    std::vector<double> results(M, 0.0);
+    #pragma omp parallel
+    {
+        int thread_id = 0;
+        #ifdef _OPENMP
+            thread_id = omp_get_thread_num();
+        #endif
+        std::mt19937 rng(1234 + thread_id);
 
-            double local_sum = 0.0;
-
-            #pragma omp for
-            for (int i = 0; i < N; i++)
-                local_sum += walk_on_spheres(x0, eps, rng);
-
-            #pragma omp atomic
-            sum += local_sum;
+        #pragma omp for collapse(2) schedule(static)
+        for (int p = 0; p < M; p++) {
+            for (int s = 0; s < N; s++) {
+                double val = walk_on_spheres(x0_list[p], eps, rng);
+                results[p] += val;
+            }
         }
-
-        double approx = sum / N;
     }
+
+    for (int p = 0; p < M; p++)
+        results[p] /= N;
 
     auto end = std::chrono::high_resolution_clock::now();
 
