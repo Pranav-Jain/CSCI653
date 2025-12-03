@@ -11,8 +11,7 @@ double boundary_value(const std::array<double,3>& x) {
     return x[0]*x[0] + x[1]*x[1] + x[2]*x[2];
 }
 
-std::array<double,3> random_point_on_sphere(
-        const std::array<double,3>& x0, double r, std::mt19937& rng)
+std::array<double,3> random_point_on_sphere(const std::array<double,3>& x0, double r, std::mt19937& rng)
 {
     std::uniform_real_distribution<double> dist(-1.0, 1.0);
 

@@ -42,7 +42,6 @@ int main() {
 
     // -------- run WOS on all points --------
     auto start = std::chrono::high_resolution_clock::now();
-
     std::vector<double> results(M, 0.0);
     #pragma omp parallel
     {
@@ -50,12 +49,15 @@ int main() {
         #ifdef _OPENMP
             thread_id = omp_get_thread_num();
         #endif
-        std::mt19937 rng(1234 + thread_id);
+        std::mt19937 rng_local(1234 + 17*thread_id); // thread-local RNG
 
         #pragma omp for collapse(2) schedule(static)
         for (int p = 0; p < M; p++) {
             for (int s = 0; s < N; s++) {
-                double val = walk_on_spheres(x0_list[p], eps, rng);
+                // std::cout<<"Thread " << thread_id << " processing point " << p << ", sample " << s << "\n";
+                double val = walk_on_spheres(x0_list[p], eps, rng_local);
+
+                #pragma omp critical
                 results[p] += val;
             }
         }
@@ -69,14 +71,14 @@ int main() {
     double ms = std::chrono::duration<double, std::milli>(end - start).count();
 
     // -------- print results --------
-    // for (int i = 0; i < M; i++) {
-    //     auto &p = x0_list[i];
-    //     std::cout << "Point " << i << " = ("
-    //               << p[0] << ", "
-    //               << p[1] << ", "
-    //               << p[2] << ") → "
-    //               << approx[i] << "\n";
-    // }
+    for (int i = 0; i < M; i++) {
+        auto &p = x0_list[i];
+        std::cout << "Point " << i << " = ("
+                  << p[0] << ", "
+                  << p[1] << ", "
+                  << p[2] << ") → "
+                  << results[i] << "\n";
+    }
 
     std::cout << "Runtime: " << ms << " ms\n";
 
