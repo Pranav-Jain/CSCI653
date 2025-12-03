@@ -21,13 +21,33 @@ the Walk on Sphere (WoS) method is a fast Monte Carlo method that
 
 <img width="591" height="261" alt="Image" src="https://github.com/user-attachments/assets/6b41746d-4959-4372-a11d-5273ea82daa1" />
 
-The problem itself is **super** parallelable - Each point inside the domain walks independently, so as its own N walks.
+The problem itself is **super** parallelizable - Each point inside the domain walks independently, so as its own N walks.
 
-## Parallel WoS
+## Domains Used
 
 By introducing OpenMp to distribute the Monte-Carlo sampling across multiple CPU cores, we are able to speedup the whole process dramatically. 
 Currently we have three simple domain that we tested on: Sphere, Link, and Capsule. 
 <img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/29e9ba0f-b15d-4213-a974-74d380b6aa60" />
+
+## Results Visualization
+
+The following is a visualization of solving 
+```math
+
+\begin{align*}
+\Delta u &= 0, \text{on} \space \Omega \\
+u &= x^2 + y^2 + z^2, \text{on} \space \partial \Omega
+\end{align*}
+```
+
+<p float="left">
+  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/sphere_result.png" width="330" />
+  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/link_result.png" width="330" /> 
+  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/capsule_result.png" width="330" />
+  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/viridis.png" width="7"/>
+</p>
+
+## Runtime Comparison
 
 The runtime comparison as follows:
 
