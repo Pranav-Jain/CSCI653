@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <fstream>
 #include "wos.h"
+#include "domain.h"
 #include "json.hpp"
 
 #ifdef _OPENMP
@@ -34,26 +35,37 @@ std::array<double,3> random_point_in_domain(
     return p;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     // --- Load config ---
-    std::ifstream ifs("config.json");
+    /*std::ifstream ifs("config.json");
     if(!ifs.is_open()) {
         std::cerr << "Could not open config.json\n";
         return 1;
     }
     json j;
-    ifs >> j;
+    ifs >> j;*/
 
-    int N = j["N"];
-    int M = j["M"];
-    double eps = j["eps"];
-    std::string domain_str = j["domain"];
-    int seed = j.value("seed", 42);
+    int N = std::stoi(argv[1]); // walks
+    int M = std::stoi(argv[2]); // points
+    double eps = std::stod(argv[3]); //eps
+    std::string domain_str = argv[4]; // result domain
+    int seed = 42; 
+    
+    
+
+    //int N = j["N"]; //walks
+    //int M = j["M"]; //points
+    //double eps = j["eps"];
+    //std::string domain_str = j["domain"];
+    //int seed = j.value("seed", 42);
+
+    std::cout<<N<<" walks and "<<M<<" points"<<std::endl;
+    std::cout<<eps<<" eps and domain is "<<domain_str<<std::endl;
 
     std::mt19937 rng(seed);
 
     // --- Choose domain type ---
-    enum DomainType { SPHERE, LINK, CAPSULE };
+    /*enum DomainType { SPHERE, LINK, CAPSULE };
     DomainType domain = LINK;
     if(domain_str == "SPHERE") domain = SPHERE;
     else if(domain_str == "LINK") domain = LINK;
@@ -101,7 +113,13 @@ int main() {
     };
     auto boundary_capsule = [](const std::array<double,3>& p) -> double {
         return p[0]*p[0] + p[1]*p[1] + p[2]*p[2];
-    };
+    };*/
+
+    DomainType domain = parseDomain(domain_str);
+
+    auto funcs = getDomainFunctions(domain);
+    auto sdf = funcs.sdf;
+    auto boundary = funcs.boundary;
 
     // --- Define bounding box for rejection sampling ---
     std::array<double,3> bbox_min = {-2,-2,-2};
@@ -110,12 +128,13 @@ int main() {
     // --- Generate random points inside domain ---
     std::vector<std::array<double,3>> x0_list(M);
     for(int i=0; i<M; i++) {
-        if(domain == SPHERE)
+        /*if(domain == SPHERE)
             x0_list[i] = random_point_in_domain(rng, bbox_min, bbox_max, sdf_sphere);
         else if(domain == LINK)
             x0_list[i] = random_point_in_domain(rng, bbox_min, bbox_max, sdf_link);
         else
-            x0_list[i] = random_point_in_domain(rng, bbox_min, bbox_max, sdf_capsule);
+            x0_list[i] = random_point_in_domain(rng, bbox_min, bbox_max, sdf_capsule);*/
+        x0_list[i] = random_point_in_domain(rng,bbox_min,bbox_max,sdf);    
     }
 
     // --- Run Walk-on-Spheres ---
@@ -134,12 +153,13 @@ int main() {
         for(int p=0; p<M; p++) {
             for(int s=0; s<N; s++) {
                 double val;
-                if(domain == SPHERE)
+                /*if(domain == SPHERE)
                     val = walk_on_spheres(x0_list[p], eps, rng_local, sdf_sphere, boundary_sphere);
                 else if(domain == LINK)
                     val = walk_on_spheres(x0_list[p], eps, rng_local, sdf_link, boundary_link);
                 else
-                    val = walk_on_spheres(x0_list[p], eps, rng_local, sdf_capsule, boundary_capsule);
+                    val = walk_on_spheres(x0_list[p], eps, rng_local, sdf_capsule, boundary_capsule);*/
+                val = walk_on_spheres(x0_list[p],eps,rng_local,sdf,boundary);
 
                 #pragma omp critical
                 results[p] += val;
@@ -156,13 +176,13 @@ int main() {
     std::cout << "Runtime: " << ms << " ms\n";
 
     // Optional: print results
-    /*
-    for(int p=0; p<M; p++) {
+    
+    /*for(int p=0; p<M; p++) {
         auto &pt = x0_list[p];
         std::cout << "Point " << p << " (" << pt[0] << "," << pt[1] << "," << pt[2]
                   << ") -> " << results[p] << "\n";
-    }
-    */
+    }*/
+    
 
     return 0;
 }
