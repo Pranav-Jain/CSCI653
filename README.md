@@ -40,7 +40,7 @@ u &= x^2 + y^2 + z^2, \text{on} \space \partial \Omega
 \end{align*}
 ```
 
-<img width="1280" height="720" alt="Image" src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/solution_result.png" />
+<img width="1280" height="720" alt="Image" src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/Pwos_v1.png" />
 
 ## Runtime Comparison
 
