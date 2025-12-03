@@ -26,11 +26,19 @@ The problem itself is **super** parallelable - Each point inside the domain walk
 ## Parallel WoS
 
 By introducing OpenMp to distribute the Monte-Carlo sampling across multiple CPU cores, we are able to speedup the whole process dramatically. 
-Currently we have three simple domain that we tested on: Sphere, Link, and Capsule. The runtime comparison as follows:
+Currently we have three simple domain that we tested on: Sphere, Link, and Capsule. 
+<img width="1280" height="720" alt="Image" src="https://github.com/user-attachments/assets/29e9ba0f-b15d-4213-a974-74d380b6aa60" />
 
+The runtime comparison as follows:
 
 <img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/57cbe204-a75a-4a26-90d1-6510508041d3" />
 
 <img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/7be687af-6e94-4366-aebe-2554b0b8e8df" />
 
 <img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/1518129b-fcd2-4d1b-9610-281c8bd45351" />
+
+
+## TODO:
+* More interesting geometry domain
+* More boundary conditions
+* CUDA version
