@@ -5,12 +5,15 @@
 #include <array>
 #include <functional>
 #include <algorithm>
+#include <fstream>
 #include "wos.h"
 #include "json.hpp"
 
 #ifdef _OPENMP
 #include <omp.h>
 #endif
+
+using json = nlohmann::json;
 
 // --- Sample a random point inside a domain using rejection sampling ---
 std::array<double,3> random_point_in_domain(

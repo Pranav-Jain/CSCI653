@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -O3 -std=c++17
 
-SRC = main.cpp wos.cpp
+SRC = main.cpp wos.cpp json.hpp
 HDR = wos.h
 
 all: wos_serial wos_omp
