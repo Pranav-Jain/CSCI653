@@ -80,7 +80,7 @@ int main() {
         double qy = std::max(std::abs(p[1]) - le, 0.0);
         double qz = p[2];
         double len_xy = std::sqrt(qx*qx + qy*qy);
-        return std::sqrt((len_xy - r1)*(len_xy - r1) + qz*qz) - r2;
+        return r2 - std::sqrt((len_xy - r1)*(len_xy - r1) + qz*qz);
     };
     auto boundary_link = [](const std::array<double,3>& p) -> double {
         return p[0]*p[0] + p[1]*p[1] + p[2]*p[2];
@@ -97,7 +97,7 @@ int main() {
         double dot_ba_ba = ba[0]*ba[0] + ba[1]*ba[1] + ba[2]*ba[2];
         double h = std::clamp(dot_pa_ba / dot_ba_ba, 0.0, 1.0);
         std::array<double,3> diff = { pa[0]-ba[0]*h, pa[1]-ba[1]*h, pa[2]-ba[2]*h };
-        return std::sqrt(diff[0]*diff[0] + diff[1]*diff[1] + diff[2]*diff[2]) - capsule_r;
+        return capsule_r - std::sqrt(diff[0]*diff[0] + diff[1]*diff[1] + diff[2]*diff[2]);
     };
     auto boundary_capsule = [](const std::array<double,3>& p) -> double {
         return p[0]*p[0] + p[1]*p[1] + p[2]*p[2];
