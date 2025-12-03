@@ -34,3 +34,9 @@ Currently we have three simple domain that we tested on: Sphere, Link, and Capsu
 <img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/7be687af-6e94-4366-aebe-2554b0b8e8df" />
 
 <img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/1518129b-fcd2-4d1b-9610-281c8bd45351" />
+
+
+## TODO:
+* More interesting geometry domain
+* More boundary conditions
+* CUDA version
