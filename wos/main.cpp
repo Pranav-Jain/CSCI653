@@ -6,6 +6,7 @@
 #include <functional>
 #include <algorithm>
 #include "wos.h"
+#include "json.hpp"
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -31,14 +32,33 @@ std::array<double,3> random_point_in_domain(
 }
 
 int main() {
-    int N = 200000;      // walks per point
-    int M = 100;         // number of random points
-    double eps = 1e-3;
-    std::mt19937 rng(42);
+    // --- Load config ---
+    std::ifstream ifs("config.json");
+    if(!ifs.is_open()) {
+        std::cerr << "Could not open config.json\n";
+        return 1;
+    }
+    json j;
+    ifs >> j;
+
+    int N = j["N"];
+    int M = j["M"];
+    double eps = j["eps"];
+    std::string domain_str = j["domain"];
+    int seed = j.value("seed", 42);
+
+    std::mt19937 rng(seed);
 
     // --- Choose domain type ---
     enum DomainType { SPHERE, LINK, CAPSULE };
-    DomainType domain = LINK; // change to SPHERE or CAPSULE
+    DomainType domain = LINK;
+    if(domain_str == "SPHERE") domain = SPHERE;
+    else if(domain_str == "LINK") domain = LINK;
+    else if(domain_str == "CAPSULE") domain = CAPSULE;
+    else {
+        std::cerr << "Unknown domain type: " << domain_str << "\n";
+        return 1;
+    }
 
     // --- Define SDFs and boundary values ---
 
