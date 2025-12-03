@@ -40,12 +40,7 @@ u &= x^2 + y^2 + z^2, \text{on} \space \partial \Omega
 \end{align*}
 ```
 
-<p float="left">
-  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/sphere_result.png" width="330" />
-  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/link_result.png" width="330" /> 
-  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/capsule_result.png" width="330" />
-  <img src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/viridis.png" width="7"/>
-</p>
+<img width="1280" height="720" alt="Image" src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/solution_result.png" />
 
 ## Runtime Comparison
 
