@@ -46,11 +46,11 @@ u &= x^2 + y^2 + z^2, \text{on} \space \partial \Omega
 
 The runtime comparison as follows:
 
-<img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/57cbe204-a75a-4a26-90d1-6510508041d3" />
+<img width="1000" height="450" alt="Image" src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/timeplot_sphere.png" />
 
-<img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/7be687af-6e94-4366-aebe-2554b0b8e8df" />
+<img width="1000" height="450" alt="Image" src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/timeplot_link.png" />
 
-<img width="1000" height="450" alt="Image" src="https://github.com/user-attachments/assets/1518129b-fcd2-4d1b-9610-281c8bd45351" />
+<img width="1000" height="450" alt="Image" src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/timeplot_capsule.png" />
 
 
 ## TODO:
