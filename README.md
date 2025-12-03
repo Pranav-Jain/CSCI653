@@ -17,7 +17,7 @@ the Walk on Sphere (WoS) method is a fast Monte Carlo method that
 * Jumps to a **random point on the surface** of that sphere (aka. "Walk on Spheres")
 * Repeats until the particle gets close to the boundary
 * Uses the boundary condition to estimate the domain
-* Random sample the walk N times the take the average of the result
+* Randomly repeats the walk N times the take the average of the result
 
 <img width="591" height="261" alt="Image" src="https://github.com/user-attachments/assets/6b41746d-4959-4372-a11d-5273ea82daa1" />
 
