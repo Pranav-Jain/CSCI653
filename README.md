@@ -53,7 +53,3 @@ The runtime comparison as follows:
 <img width="1000" height="450" alt="Image" src="https://github.com/Pranav-Jain/CSCI653/blob/main/results/timeplot_capsule.png" />
 
 
-## TODO:
-* More interesting geometry domain
-* More boundary conditions
-* CUDA version
